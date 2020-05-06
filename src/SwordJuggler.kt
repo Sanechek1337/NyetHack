@@ -5,8 +5,17 @@ fun main() {
         swordsJuggling = 2
     }
 
-    swordsJuggling = swordsJuggling!!.plus(1)
+    try {
+        proficiencyCheck(swordsJuggling)
+        swordsJuggling = swordsJuggling!!.plus(1)
+    } catch (e: Exception) {
+        println(e)
+    }
 
     println("You juggle $swordsJuggling swords!")
 }
-//возбуждение исключений 132
+
+fun proficiencyCheck(swordJuggling: Int?) {
+    checkNotNull(swordJuggling, {"Player cannot juggle swords"})
+}
+//проверка условий 137
