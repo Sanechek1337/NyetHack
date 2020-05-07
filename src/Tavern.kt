@@ -1,12 +1,16 @@
-fun main() {
-    var beverage = readLine()
-//    beverage = null
-    if (beverage != null) {
-        beverage = beverage.capitalize()
-    } else {
-        println("I can't do that without crashing - beverage was null!")
-    }
+const val TAVERN_NAME = "Taernyl's Folly"
 
-    val beverageServed: String = beverage ?: "Buttered Ale"
-    println(beverageServed)
+fun main() {
+    placeOrder("shandy,Dragon's Breath,5.91")
 }
+
+private fun placeOrder(menuData: String) {
+    val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
+    val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
+    println("Madrigal speaks with $tavernMaster about their order")
+
+    val (type, name, price) = menuData.split(',')
+    val message = "Madrigal buys a $name ($type) for $price"
+    println(message)
+}
+//строки сплит
