@@ -1,11 +1,12 @@
 const val TAVERN_NAME = "Taernyl's Folly"
 
 fun main() {
-    placeOrder("shandy,Dragon's Breath,5.91")
+//    placeOrder("shandy,Dragon's Breath,5.91")
+    placeOrder("shandy,DRAGON'S BREATH,5.91") //задание
 }
 
 private fun toDragonSpeak(phrase: String) =
-    phrase.replace(Regex("[aioeu]")) {
+    phrase.replace(Regex("[aioeuAEOIU]")) {
         when (it.value) {
             "a" -> "4"
             "e" -> "3"
@@ -15,6 +16,7 @@ private fun toDragonSpeak(phrase: String) =
             else -> it.value
         }
     }
+
 private fun placeOrder(menuData: String) {
     val indexOfApostrophe = TAVERN_NAME.indexOf('\'')
     val tavernMaster = TAVERN_NAME.substring(0 until indexOfApostrophe)
@@ -24,7 +26,12 @@ private fun placeOrder(menuData: String) {
     val message = "Madrigal buys a $name ($type) for $price"
     println(message)
 
-    val phrase = "Ah, delicious $name!"
-    println("Madrigal exclaims: ${toDragonSpeak(phrase)}")
+    val phrase = if (name == "Dragon's Breath" || name == "DRAGON'S BREATH") {
+//        "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name!")}"
+        "Madrigal exclaims: ${toDragonSpeak("IT'S GOT WHAT ADVENTURERS CRAVE!")}" // задание
+    } else {
+        "Madrigal says: Thanks for the $name"
+    }
+    println(phrase)
 }
-//строки. работа со строками
+//строки. доделать задание
