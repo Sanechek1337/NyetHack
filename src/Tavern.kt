@@ -6,23 +6,37 @@ var playerSilver = 10
 
 fun main() {
     placeOrder("shandy,Dragon's Breath,5.91")
-}
+    playerSilver = 10
+    playerGold = 10
+    placeOrder("shandy,Dragon's Breath,10.1")
+    playerSilver = 10
+    playerGold = 10
+    placeOrder("shandy,Dragon's Breath,10.0")
+    playerSilver = 10
+    playerGold = 10
+    placeOrder("shandy,Dragon's Breath,11.1")
+} //9-17 задание(обработка отрицательного баланса)
 
-private fun performPurchase(price: Double) {
+private fun performPurchase(price: Double): Boolean {
     displayBalance()
     val totalPurse = playerGold + (playerSilver / 100.0)
     println("Total purse: $totalPurse")
     println("Purchasing item for $price")
 
-    val remainingBalance = totalPurse - price
-    println("Remaining balance: ${"%.2f".format(remainingBalance)}")
+    if (totalPurse >= price) {
+        val remainingBalance = totalPurse - price
+        println("Remaining balance: ${"%.2f".format(remainingBalance)}")
 
-    val remainingGold = remainingBalance.toInt()
-    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
-    playerGold = remainingGold
-    playerSilver = remainingSilver
-    displayBalance()
-}
+        val remainingGold = remainingBalance.toInt()
+        val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
+        playerGold = remainingGold
+        playerSilver = remainingSilver
+        displayBalance()
+        return true
+    } else {
+        return false
+    }
+}// условие для задания(обработка отрицательного баланса)
 
 private fun displayBalance() {
     println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
@@ -46,16 +60,26 @@ private fun placeOrder(menuData: String) {
     println("Madrigal speaks with $tavernMaster about their order")
 
     val (type, name, price) = menuData.split(',')
-    val message = "Madrigal buys a $name ($type) for $price"
+
+//    performPurchase(price.toDouble())
+    val x = if (performPurchase(price.toDouble())) {
+        1
+    } else 0 // х для задания(обработка отрицательного баланса)
+
+    val message = if (x == 1) { // условие для задания(обработка отрицательного баланса)
+        "Madrigal buys a $name ($type) for $price" // было по дефолту
+    } else "Madrigal doesn't have enough money" // для задания
+
     println(message)
 
-    performPurchase(price.toDouble())
-
-    val phrase = if (name == "Dragon's Breath" || name == "DRAGON'S BREATH") {
-        "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name!")}"
-    } else {
-        "Madrigal says: Thanks for the $name"
+    if (x == 1) { // условие для задания
+        val phrase = if (name == "Dragon's Breath" || name == "DRAGON'S BREATH") {
+            "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name!")}"
+        } else {
+            "Madrigal says: Thanks for the $name"
+        }
+        println(phrase)
     }
-    println(phrase)
 }
-//числа дошел до Для любопытных, повторить главу
+//глава 8. задание обработка отрицательного баланса
+//перепроверить задание
