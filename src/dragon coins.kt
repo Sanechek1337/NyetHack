@@ -1,27 +1,20 @@
-import kotlin.math.roundToInt
-
-const val TAVERN_NAME = "Taernyl's Folly"
-var playerGold = 10
-var playerSilver = 10
+//Задание драконьи монеты(глава 8)
+var dragCoin = 5.0
 
 fun main() {
     placeOrder("shandy,Dragon's Breath,5.91")
 }
 
 private fun performPurchase(price: Double): Boolean {
+    var priceInDc = price / 1.43
     displayBalance()
-    val totalPurse = playerGold + (playerSilver / 100.0)
-    println("Total purse: $totalPurse")
-    println("Purchasing item for $price")
+    println("Purchasing item for $price g/ ${"%.4f".format(priceInDc)} DC")
 
-    if (totalPurse >= price) {
-        val remainingBalance = totalPurse - price
-        println("Remaining balance: ${"%.2f".format(remainingBalance)}")
+    if (dragCoin >= priceInDc) {
+        val remainingBalance = dragCoin - priceInDc
+        println("Remaining balance: ${"%.4f".format(remainingBalance)}")
 
-        val remainingGold = remainingBalance.toInt()
-        val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
-        playerGold = remainingGold
-        playerSilver = remainingSilver
+        dragCoin = remainingBalance
         displayBalance()
         return true
     } else {
@@ -30,7 +23,7 @@ private fun performPurchase(price: Double): Boolean {
 }// условие для задания(обработка отрицательного баланса)
 
 private fun displayBalance() {
-    println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
+    println("Player's purse balance: ${"%.4f".format(dragCoin)}")
 }
 
 private fun toDragonSpeak(phrase: String) =
@@ -72,4 +65,5 @@ private fun placeOrder(menuData: String) {
         println(phrase)
     }
 }
-//глава 9
+//глава 8. задание обработка отрицательного баланса
+//перепроверить задание
