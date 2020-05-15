@@ -46,17 +46,15 @@ private fun placeOrder(menuData: String) {
     val (type, name, price) = menuData.split(',')
 
 //    performPurchase(price.toDouble())
-    val x = if (performPurchase(price.toDouble())) {
-        1
-    } else 0 // х для задания(обработка отрицательного баланса)
+    val x = performPurchase(price.toDouble())
 
-    val message = if (x == 1) { // условие для задания(обработка отрицательного баланса)
+    val message = if (x) { // условие для задания(обработка отрицательного баланса)
         "Madrigal buys a $name ($type) for $price" // было по дефолту
     } else "Madrigal doesn't have enough money" // для задания
 
     println(message)
 
-    if (x == 1) { // условие для задания
+    if (x) { // условие для задания
         val phrase = if (name == "Dragon's Breath" || name == "DRAGON'S BREATH") {
             "Madrigal exclaims: ${toDragonSpeak("Ah, delicious $name!")}"
         } else {
